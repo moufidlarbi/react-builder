@@ -7,7 +7,8 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 
 class Checkout extends Component {
   state={
-  	ingredients: this.props.location.state.ingredients
+  	ingredients: this.props.location.state.ingredients,
+    totalPrice: this.props.location.state.totalPrice
   }
 
   checkoutCancelledHandler = () => {
@@ -27,7 +28,7 @@ class Checkout extends Component {
         onCheckoutCancelled={this.checkoutCancelledHandler}
         onCheckoutContinued={this.checkoutContinuedHandler}/>
 
-      <Route path={this.props.match.path + '/contact-data'} render={() => (<ContactData ingredients={this.state.ingredients}/>)}/>
+      <Route path={this.props.match.path + '/contact-data'} render={() => (<ContactData ingredients={this.state.ingredients} totalPrice={this.state.totalPrice}/>)}/>
 		</div>
     );
   }
