@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
 class Checkout extends Component {
-  state={
-  	ingredients: this.props.location.state.ingredients,
-    totalPrice: this.props.location.state.totalPrice
+ 
+  constructor(props) {
+    super(props);
+
+    if (this.props.location.state == null) {
+      this.state={
+        ingredients: {},
+        totalPrice: 0
+      }
+      this.props.history.push('/');
+    } else {
+      this.state={
+        ingredients: this.props.location.state.ingredients,
+        totalPrice: this.props.location.state.totalPrice
+      }
+    }
   }
+
+ 
 
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
@@ -34,4 +49,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default withRouter(Checkout);
