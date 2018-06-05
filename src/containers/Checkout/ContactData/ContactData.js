@@ -67,9 +67,16 @@ orderHandler = (event) => {
     event.preventDefault();
 
     this.setState({ loading: true });
+    const formData = {};
+    
+    for (let formElementIdentifier in this.state.orderForm) {
+        formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+    }
+
     const order = {
         ingredients: this.props.ingredients,
         price: this.props.totalPrice,
+        orderData: formData
         
     }
 
@@ -106,7 +113,7 @@ render() {
     }
 
     let form = (
-        <form>
+        <form onSubmit={this.orderHandler}>
          {formElementsArray.map(formElement => (
             <Input 
                 key={formElement.id}
@@ -115,7 +122,7 @@ render() {
                 value={formElement.config.value}
                 changed={(event) => this.inputChangedHandler(event, formElement.id)} />
             ))}
-         <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+         <Button btnType="Success">ORDER</Button>
         </form>
      );
     if (this.state.loading) {
