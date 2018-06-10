@@ -51,11 +51,7 @@ class BurgerBuilder extends Component {
 
 	purchaseContinueHandler = () => {
 		this.props.history.push({
-			pathname: '/checkout',
-			state: { 
-				ingredients: this.props.ings,
-				totalPrice: this.state.totalPrice
-			}
+			pathname: '/checkout'
 		});
 	}
 
@@ -85,7 +81,6 @@ class BurgerBuilder extends Component {
 		let burger = this.state.error ? <p>Ingredients could not be loaded.</p> : <Spinner />
 
 		if (this.props.ings) {
-			console.log(this.props)
 			burger = (
 				<Aux>
 					<Burger ingredients={ this.props.ings }/>
