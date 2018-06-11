@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
 	state = {
@@ -19,7 +19,7 @@ class BurgerBuilder extends Component {
 		error: null
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		// axios.get('https://react-my-burger-a0de2.firebaseio.com/ingredients.json')
 		// 	.then(response => {
 		// 		this.setState({ingredients:response.data})
@@ -42,11 +42,11 @@ class BurgerBuilder extends Component {
 	}
 
 	purchaseHandler = () => {
-		this.setState({purchasing: true});
+		this.setState({ purchasing: true });
 	}
 
 	purchaseCancelHandler = () => {
-		this.setState({purchasing: false})
+		this.setState({ purchasing: false })
 	}
 
 	purchaseContinueHandler = () => {
@@ -55,7 +55,7 @@ class BurgerBuilder extends Component {
 		});
 	}
 
-	render () {
+	render() {
 		const disabledInfo = {
 			...this.props.ings
 		};
@@ -83,13 +83,13 @@ class BurgerBuilder extends Component {
 		if (this.props.ings) {
 			burger = (
 				<Aux>
-					<Burger ingredients={ this.props.ings }/>
+					<Burger ingredients={this.props.ings} />
 					<BuildControls
-						ingredientAdded={  this.props.onIngredientAdded }
-						ingredientRemove={ this.props.onIngredientRemoved }
-						disabled={ disabledInfo }
-						purchaseable={ this.updatePurchaseState(this.props.ings) }
-						totalPrice={ this.props.totalPrice }
+						ingredientAdded={this.props.onIngredientAdded}
+						ingredientRemove={this.props.onIngredientRemoved}
+						disabled={disabledInfo}
+						purchaseable={this.updatePurchaseState(this.props.ings)}
+						totalPrice={this.props.totalPrice}
 						ordered={this.purchaseHandler} />
 				</Aux>
 			);
@@ -115,8 +115,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName:ingName}),
-		onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+		onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+		onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName))
 	}
 }
 
